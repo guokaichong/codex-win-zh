@@ -1,0 +1,42 @@
+name: build-win-zh-fast
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: codex-rs
+    env:
+      CARGO_PROFILE_RELEASE_LTO: "false"
+      CARGO_PROFILE_RELEASE_CODEGEN_UNITS: "16"
+      CARGO_PROFILE_RELEASE_DEBUG: "0"
+      CARGO_INCREMENTAL: "0"
+      CARGO_TERM_COLOR: never
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure Rust toolchain
+        run: rustup toolchain install 1.99.1 --profile minimal --no-self-update
+
+      - name: Build codex
+        run: cargo build --release -p codex-cli --bin codex
+
+      - name: Collect artifacts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path ../out | Out-Null
+          Copy-Item target/release/codex.exe ../out/codex.exe -ErrorAction SilentlyContinue
+          Get-ChildItem target/release -Filter *.exe | ForEach-Object { Copy-Item $_.FullName ../out/ -ErrorAction SilentlyContinue }
+          Get-ChildItem ../out | Select-Object Name, Length
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-win-zh-fast
+          path: out/
+          retention-days: 14
