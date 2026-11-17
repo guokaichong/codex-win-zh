@@ -290,7 +290,7 @@ name = "app_test_support"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-app-server-protocol",
  "codex-config",
@@ -1930,7 +1930,7 @@ name = "codex-agent-identity"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-http-client",
  "codex-protocol",
@@ -2063,7 +2063,7 @@ dependencies = [
  "anyhow",
  "assert_matches",
  "async-channel",
- "base64 0.22.1",
+ "base64 0.23.0",
  "bytes",
  "chrono",
  "codex-client",
@@ -2102,7 +2102,7 @@ dependencies = [
  "anyhow",
  "app_test_support",
  "axum",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "clap",
  "codex-agent-message-board-host",
@@ -2352,7 +2352,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "axum",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-api",
  "codex-app-server-protocol",
@@ -2488,7 +2488,7 @@ name = "codex-backend-client"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-api",
  "codex-backend-openapi-models",
  "codex-features",
@@ -2546,7 +2546,7 @@ name = "codex-chatgpt"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "clap",
  "codex-connectors",
  "codex-core",
@@ -2718,7 +2718,7 @@ dependencies = [
 name = "codex-cloud-config"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-agent-identity",
  "codex-async-utils",
@@ -2747,7 +2747,7 @@ name = "codex-cloud-tasks"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "clap",
  "codex-agent-identity",
@@ -2885,7 +2885,7 @@ dependencies = [
 name = "codex-code-mode-runtime"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-code-mode-protocol",
  "codex-plugin-host",
  "codex-protocol",
@@ -2912,7 +2912,7 @@ name = "codex-config"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-execpolicy",
  "codex-features",
  "codex-file-system",
@@ -3026,7 +3026,7 @@ dependencies = [
  "assert_cmd",
  "assert_matches",
  "async-channel",
- "base64 0.22.1",
+ "base64 0.23.0",
  "bm25",
  "chrono",
  "codex-agent-graph-store",
@@ -3212,7 +3212,7 @@ name = "codex-core-plugins"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-analytics",
  "codex-api",
@@ -3348,7 +3348,7 @@ dependencies = [
  "anyhow",
  "arc-swap",
  "axum",
- "base64 0.22.1",
+ "base64 0.23.0",
  "bytes",
  "clatter",
  "codex-api",
@@ -3461,7 +3461,7 @@ dependencies = [
 name = "codex-exec-server-protocol"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-file-system",
  "codex-install-context",
  "codex-mxc-sandbox",
@@ -3793,7 +3793,7 @@ name = "codex-guardian-v2"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-agent-identity",
  "codex-analytics",
  "codex-api",
@@ -4014,7 +4014,7 @@ dependencies = [
 name = "codex-image-generation-extension"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-api",
  "codex-attachment-store",
  "codex-core",
@@ -4121,7 +4121,7 @@ name = "codex-login"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-agent-identity",
  "codex-config",
@@ -4173,7 +4173,7 @@ dependencies = [
  "arc-swap",
  "assert_matches",
  "async-channel",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-api",
  "codex-async-utils",
  "codex-config",
@@ -4286,7 +4286,7 @@ name = "codex-memories-write"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-backend-client",
  "codex-config",
@@ -4333,7 +4333,7 @@ dependencies = [
 name = "codex-message-board"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "caseless",
  "chrono",
  "codex-attachment-store",
@@ -4401,7 +4401,7 @@ name = "codex-model-provider"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-agent-identity",
  "codex-api",
@@ -4527,7 +4527,7 @@ dependencies = [
  "anyhow",
  "aws-credential-types",
  "aws-sigv4",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "clap",
  "codex-utils-absolute-path",
@@ -4801,7 +4801,7 @@ dependencies = [
 name = "codex-response-debug-context"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-api",
  "http 1.4.0",
  "pretty_assertions",
@@ -4838,7 +4838,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "axum",
- "base64 0.22.1",
+ "base64 0.23.0",
  "bytes",
  "codex-api",
  "codex-config",
@@ -4940,7 +4940,7 @@ dependencies = [
 name = "codex-runtime-agent-instance"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "bytes",
  "codex-agent-identity",
  "codex-api",
@@ -4999,7 +4999,7 @@ version = "0.0.0"
 dependencies = [
  "age",
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-git-utils",
  "codex-keyring-store",
  "keyring",
@@ -5019,7 +5019,7 @@ name = "codex-shell-command"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-protocol",
  "codex-utils-absolute-path",
  "libc",
@@ -5255,7 +5255,7 @@ dependencies = [
  "arboard",
  "assert_matches",
  "axum",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "clap",
  "codex-ansi-escape",
@@ -5414,7 +5414,7 @@ dependencies = [
 name = "codex-user-verification"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "block2",
  "core-foundation 0.10.1",
  "dirs",
@@ -5456,7 +5456,7 @@ dependencies = [
 name = "codex-utils-audio"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-protocol",
  "codex-utils-cache",
  "codex-utils-string",
@@ -5545,7 +5545,7 @@ dependencies = [
 name = "codex-utils-image"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-utils-cache",
  "divan",
  "image",
@@ -5613,7 +5613,7 @@ dependencies = [
 name = "codex-utils-path-uri"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-utils-absolute-path",
  "pretty_assertions",
  "schemars 0.8.22",
@@ -5800,7 +5800,7 @@ name = "codex-websocket-auth"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "clap",
  "codex-utils-absolute-path",
  "constant_time_eq 0.3.1",
@@ -5835,7 +5835,7 @@ name = "codex-windows-sandbox"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "base64 0.23.0",
  "chrono",
  "codex-http-client",
  "codex-otel",
@@ -5890,7 +5890,7 @@ dependencies = [
 name = "codex-workload-identity"
 version = "0.0.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-http-client",
  "hyper",
  "hyper-util",
@@ -6186,7 +6186,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "assert_cmd",
- "base64 0.22.1",
+ "base64 0.23.0",
  "codex-agent-graph-store",
  "codex-agent-message-board-host",
  "codex-analytics",
