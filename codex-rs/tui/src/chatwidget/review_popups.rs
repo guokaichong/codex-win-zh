@@ -1,0 +1,159 @@
+//! Review presets, searchable Git choices, and instructions in the shared picker.
+//!
+//! Child cancellation restores the preset menu; accepting a target dismisses both.
+
+use super::*;
+use crate::bottom_pane::PickerSurface;
+use codex_git_utils::CommitLogEntry;
+
+impl ChatWidget {
+    pub(crate) fn on_review_started(&mut self) {
+        self.bottom_pane.dismiss_composer_sparkle();
+        self.bottom_pane.clear_pending_questions();
+    }
+
+    pub(crate) fn open_review_popup(&mut self) {
+        let mut items: Vec<SelectionItem> = Vec::new();
+
+        items.push(SelectionItem {
+            name: "以基准分支审查".to_string(),
+            description: Some("(PR Style)".into()),
+            actions: vec![Box::new({
+                let cwd = self.config.cwd.to_path_buf();
+                move |tx| {
+                    tx.send(AppEvent::OpenReviewBranchPicker(cwd.clone()));
+                }
+            })],
+            dismiss_on_select: false,
+            dismiss_parent_on_child_accept: true,
+            ..Default::default()
+        });
+
+        items.push(SelectionItem {
+            name: "审查未提交的修改".to_string(),
+            actions: vec![Box::new(move |tx: &AppEventSender| {
+                tx.review(ReviewTarget::UncommittedChanges);
+            })],
+            dismiss_on_select: true,
+            ..Default::default()
+        });
+
+        items.push(SelectionItem {
+            name: "审查一次提交".to_string(),
+            actions: vec![Box::new({
+                let cwd = self.config.cwd.to_path_buf();
+                move |tx| {
+                    tx.send(AppEvent::OpenReviewCommitPicker(cwd.clone()));
+                }
+            })],
+            dismiss_on_select: false,
+            dismiss_parent_on_child_accept: true,
+            ..Default::default()
+        });
+
+        items.push(SelectionItem {
+            name: "Custom review instructions".to_string(),
+            actions: vec![Box::new(move |tx| {
+                tx.send(AppEvent::OpenReviewCustomPrompt);
+            })],
+            dismiss_on_select: false,
+            dismiss_parent_on_child_accept: true,
+            ..Default::default()
+        });
+
+        self.bottom_pane.show_selection_view(SelectionViewParams {
+            title: Some("选择审查预设".into()),
+            items,
+            ..SelectionViewParams::picker()
+        });
+    }
+
+    pub(crate) async fn show_review_branch_picker(&mut self, cwd: &Path) {
+        let branches = local_git_branches(cwd).await;
+        let current_branch = current_branch_name(cwd)
+            .await
+            .unwrap_or_else(|| "(detached HEAD)".to_string());
+        let mut items: Vec<SelectionItem> = Vec::with_capacity(branches.len());
+
+        for option in branches {
+            let branch = option.clone();
+            items.push(SelectionItem {
+                name: branch.clone(),
+                actions: vec![Box::new(move |tx3: &AppEventSender| {
+                    tx3.review(ReviewTarget::BaseBranch {
+                        branch: branch.clone(),
+                    });
+                })],
+                dismiss_on_select: true,
+                search_value: Some(option),
+                ..Default::default()
+            });
+        }
+
+        self.bottom_pane.show_selection_view(SelectionViewParams {
+            picker_surface: PickerSurface::Panel,
+            title: Some("选择基准分支".to_string()),
+            subtitle: Some(format!("Current branch: {current_branch}")),
+            items,
+            is_searchable: true,
+            search_placeholder: Some("输入以搜索分支".to_string()),
+            ..Default::default()
+        });
+    }
+
+    pub(crate) async fn show_review_commit_picker(&mut self, cwd: &Path) {
+        let commits = recent_commits(cwd, /*limit*/ 100).await;
+        self.show_review_commits(commits);
+    }
+
+    pub(super) fn show_review_commits(&mut self, commits: Vec<CommitLogEntry>) {
+        let mut items: Vec<SelectionItem> = Vec::with_capacity(commits.len());
+        for entry in commits {
+            let subject = entry.subject.clone();
+            let sha = entry.sha.clone();
+            let search_val = format!("{subject} {sha}");
+
+            items.push(SelectionItem {
+                name: subject.clone(),
+                actions: vec![Box::new(move |tx3: &AppEventSender| {
+                    tx3.review(ReviewTarget::Commit {
+                        sha: sha.clone(),
+                        title: Some(subject.clone()),
+                    });
+                })],
+                dismiss_on_select: true,
+                search_value: Some(search_val),
+                ..Default::default()
+            });
+        }
+
+        self.bottom_pane.show_selection_view(SelectionViewParams {
+            picker_surface: PickerSurface::Panel,
+            title: Some("选择要审查的提交".into()),
+            items,
+            is_searchable: true,
+            search_placeholder: Some("输入以搜索提交".to_string()),
+            ..Default::default()
+        });
+    }
+
+    pub(crate) fn show_review_custom_prompt(&mut self) {
+        let tx = self.app_event_tx.clone();
+        let view = CustomPromptView::new(
+            "Custom review instructions".to_string(),
+            "输入指令后按 Enter".to_string(),
+            /*initial_text*/ String::new(),
+            /*context_label*/ None,
+            Box::new(move |prompt: String| {
+                let trimmed = prompt.trim().to_string();
+                if trimmed.is_empty() {
+                    return;
+                }
+                tx.review(ReviewTarget::Custom {
+                    instructions: trimmed,
+                });
+            }),
+        );
+        self.bottom_pane.show_text_prompt(view);
+    }
+}
